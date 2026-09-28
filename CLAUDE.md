@@ -74,7 +74,9 @@ src/tf_convert_pricer/
     pricer.py         # TF binomial tree pricing engine
     greeks.py         # Greeks via bump-and-reprice on top of pricer
     examples.py       # Made-up instruments spanning equity-like / hybrid / busted
-tests/                # One test module per source module
+    jtd/              # Second model: jump-to-default PDE (docs/cb_jtd_spec.pdf)
+        market.py, grid.py, pde.py, pricer.py, calibration.py, greeks.py, examples.py
+tests/                # One test module per source module (test_jtd_* for jtd/)
 docs/MODEL.md         # Model writeup + assumptions log
 notebooks/            # Exploration / plots (not authoritative — code is)
 ```

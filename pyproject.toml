@@ -31,3 +31,10 @@ packages = ["src/tf_convert_pricer"]
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]
 testpaths = ["tests"]
+
+[tool.ruff.lint.flake8-bugbear]
+# Frozen dataclasses: safe as argument defaults.
+extend-immutable-calls = [
+    "tf_convert_pricer.jtd.grid.GridSpec",
+    "tf_convert_pricer.jtd.pricer.JTDTerms",
+]
