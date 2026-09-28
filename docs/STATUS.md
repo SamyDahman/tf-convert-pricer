@@ -50,7 +50,6 @@ is deployed from `main`: <https://tf-convert-pricer-zndtdpcb3sohjdexoyjkql.strea
   deleted on disk (it was tracked), and a Sep 27 screenshot (seed 44
   busted, used to debug the flat-delta question) is untracked. Nothing
   references either. Samy hasn't decided whether to keep them.
-- Remote branch `jtd-pricer` is identical to `main` and can be deleted.
 
 ## Candidate next steps (none started)
 
