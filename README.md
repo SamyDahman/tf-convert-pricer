@@ -8,12 +8,14 @@ interactive Streamlit demo.
 
 **➤ [tf-convert-pricer-zndtdpcb3sohjdexoyjkql.streamlit.app](https://tf-convert-pricer-zndtdpcb3sohjdexoyjkql.streamlit.app)**
 
-Pick a regime (equity-like / hybrid / busted), scrub the slider or hit
-Play, and watch how the bond's fair value and greeks respond as a random
-GBM spot path evolves. Delta, gamma, vega, credit-spread DV01, and theta
-are all shown in trader-standard option notation. Full explanation of
-the pricer and the display conventions is in the expander at the top of
-the app.
+Pick a model (**jump-to-default PDE** or the **TF tree**) and a scenario
+(equity-like / hybrid / busted, or the JTD spec's soft-callable reference
+bond), then scrub the slider or hit Play. A simulated stock path drives
+the convertible, and every Greek updates along it. A value-vs-stock
+panel shows the dot riding the model's curve. Under JTD the path can
+actually default: the stock goes to zero and the bond pays recovery. The
+page also shows risk tiles at t = 0 and a TF-vs-JTD comparison across
+the stock price, which highlights the credit delta TF can't see.
 
 Streamlit Community Cloud's free tier sleeps idle apps, so the first
 visit after a lull may take ~30 seconds to wake.
@@ -27,8 +29,16 @@ visit after a lull may take ~30 seconds to wake.
   - `greeks.py` — delta, gamma, vega, credit-spread sensitivity, theta,
     via bump-and-reprice
   - `examples.py` — three regime-tagged `(bond, market)` pairs
-- **`webapp/`** — Streamlit demo (`app.py`) plus the path-simulation
-  helper (`simulation.py`) it depends on
+  - `jtd/` — a second model: a jump-to-default PDE with a
+    stock-dependent hazard rate, CDS bootstrap, soft call with notice,
+    Bermudan puts, discrete dividends, and a full risk report (credit-delta
+    split, CS01 buckets, jump-to-default). Implements
+    [`docs/cb_jtd_spec.pdf`](docs/cb_jtd_spec.pdf) and reproduces its
+    reference run
+- **`webapp/`** — Streamlit demo (`app.py`); `scenarios.py` (one bond,
+  both models, JTD hazard calibrated to TF's credit spread),
+  `jtd_simulation.py` (default-capable path, curve-based JTD series),
+  `simulation.py` (TF path and series)
 - **`docs/MODEL.md`** — model writeup and assumptions log
 
 Sanity checks baked into the test suite:
@@ -40,7 +50,8 @@ Sanity checks baked into the test suite:
 - Deep-ITM and deep-OTM regimes match parity and the bond floor
   respectively
 
-69 tests, all passing.
+181 tests, all passing (JTD adds the spec's T1–T5, reference run,
+convergence check, and cross-checks against the TF pricer).
 
 ## Local setup
 
@@ -50,7 +61,7 @@ Requires Python 3.11+.
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -e '.[dev,web]'
-pytest                          # runs the whole suite in ~1s
+pytest                          # runs the whole suite in ~20s
 streamlit run webapp/app.py     # opens on http://localhost:8501
 ```
 
@@ -67,6 +78,8 @@ hard-call schedule only).
 - [x] Example instruments (equity-like / hybrid / busted)
 - [x] Risk / greeks module
 - [x] Interactive demo webapp, deployed publicly
+- [x] Jump-to-default PDE model + risk report
+- [x] JTD model in the webapp
 - [ ] Write-up
 
 ## Built with Claude Code
