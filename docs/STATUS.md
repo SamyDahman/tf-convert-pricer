@@ -46,10 +46,7 @@ is deployed from `main`: <https://tf-convert-pricer-zndtdpcb3sohjdexoyjkql.strea
 
 ## Loose ends
 
-- `docs/` has two uncommitted screenshot changes: the Sep 13 screenshot is
-  deleted on disk (it was tracked), and a Sep 27 screenshot (seed 44
-  busted, used to debug the flat-delta question) is untracked. Nothing
-  references either. Samy hasn't decided whether to keep them.
+None. The working tree is clean.
 
 ## Candidate next steps (none started)
 
