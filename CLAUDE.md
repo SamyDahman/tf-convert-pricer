@@ -56,14 +56,20 @@ ignoring credit risk entirely.
 
 ## Open modeling assumptions — decide and document in docs/MODEL.md
 
-- [ ] Constant credit spread across the tree, or term structure?
-- [ ] Constant volatility, or surface/smile?
-- [ ] Discrete dividends (drop at ex-date) or continuous yield?
-- [ ] Day count / compounding convention
-- [ ] Number of tree steps and a convergence check
-- [ ] Call/put schedule representation (date → price map; notice periods ignored for v1?)
+All decided. See the assumptions log in `docs/MODEL.md` (TF) and its
+"Decisions log" (JTD). New ones go there too; don't pick silently.
 
-Do not silently pick these — surface them as explicit decisions.
+- [x] Constant credit spread across the tree, or term structure?
+- [x] Constant volatility, or surface/smile?
+- [x] Discrete dividends (drop at ex-date) or continuous yield?
+- [x] Day count / compounding convention
+- [x] Number of tree steps and a convergence check
+- [x] Call/put schedule representation (date → price map; notice periods ignored for v1?)
+
+## Resuming work
+
+Start with `docs/STATUS.md`: current state, decisions made in
+conversation, loose ends, next steps, and how to run and check the app.
 
 ## Architecture
 
@@ -77,7 +83,10 @@ src/tf_convert_pricer/
     jtd/              # Second model: jump-to-default PDE (docs/cb_jtd_spec.pdf)
         market.py, grid.py, pde.py, pricer.py, calibration.py, greeks.py, examples.py
 tests/                # One test module per source module (test_jtd_* for jtd/)
-docs/MODEL.md         # Model writeup + assumptions log
+docs/MODEL.md         # Model writeup + assumptions log (TF and JTD)
+docs/STATUS.md        # Handoff: where things stand, loose ends, next steps
+docs/cb_jtd_spec.pdf  # The JTD implementation spec
+webapp/               # Streamlit demo (app.py, scenarios.py, jtd_simulation.py, simulation.py)
 notebooks/            # Exploration / plots (not authoritative — code is)
 ```
 
